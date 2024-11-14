@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const { sendVerificationEmail } = require("./utils/emailService");
 const { updateTokenExpiry } = require("./utils/tokenService");
 

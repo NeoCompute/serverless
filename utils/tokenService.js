@@ -16,3 +16,5 @@ async function updateTokenExpiry(email, token) {
     return { error: "Error updating token expiry" };
   }
 }
+
+module.exports = { updateTokenExpiry };
