@@ -1,29 +1,16 @@
 const { sendVerificationEmail } = require("./utils/emailService");
-const { saveVerificationRecord } = require("./utils/database");
+const { updateTokenExpiry } = require("./utils/tokenService");
 
 exports.handler = async (event) => {
   try {
     const snsMessage = event.Records[0].Sns.Message;
-    const {
-      email,
-      firstName,
-      lastName,
-      verificationToken,
-      verificationTokenExpires,
-    } = JSON.parse(snsMessage);
+    const { email, firstName, lastName, verificationToken } =
+      JSON.parse(snsMessage);
 
     const verificationLink = `http://akhil-k.com/verify?token=${verificationToken}`;
-    await sendVerificationEmail(
-      email,
-      verificationLink,
-      verificationTokenExpires
-    );
+    await sendVerificationEmail(email, verificationLink);
 
-    await saveVerificationRecord({
-      email,
-      verificationToken,
-      verificationTokenExpires,
-    });
+    await updateTokenExpiry(email, verificationToken);
 
     return {
       statusCode: 200,
