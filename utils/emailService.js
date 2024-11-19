@@ -6,6 +6,7 @@ const fromEmail = process.env.FROM_EMAIL;
 const mg = mailgun({ apiKey: API_KEY, domain: DOMAIN });
 
 async function sendVerificationEmail(email, verificationLink) {
+  console.log("Sending Verification Email to:", email);
   const data = {
     from: fromEmail,
     to: email,
