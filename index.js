@@ -1,8 +1,4 @@
-require("dotenv").config();
-
 const { sendVerificationEmail } = require("./utils/emailService");
-const { updateTokenExpiry } = require("./utils/tokenService");
-
 const verifyEmailLink = process.env.VERIFY_EMAIL_LINK;
 
 exports.handler = async (event) => {
@@ -10,15 +6,9 @@ exports.handler = async (event) => {
     const snsMessage = event.Records[0].Sns.Message;
     const { email, firstName, lastName, verificationToken } =
       JSON.parse(snsMessage);
-
     const verificationLink = `${verifyEmailLink}/${verificationToken}`;
-
     console.log("verificationLink", verificationLink);
-
     await sendVerificationEmail(email, verificationLink);
-
-    // await updateTokenExpiry(email, verificationToken);
-
     return {
       statusCode: 200,
       body: JSON.stringify({
