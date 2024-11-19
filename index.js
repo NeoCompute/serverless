@@ -1,4 +1,3 @@
-require("dotenv").config();
 const { sendVerificationEmail } = require("./utils/emailService");
 const verifyEmailLink = process.env.VERIFY_EMAIL_LINK;
 
