@@ -12,7 +12,6 @@
   "dependencies": {
     "aws-sdk": "^2.1692.0",
     "dotenv": "^16.4.5",
-    "mailgun-js": "^0.22.0",
-    "pg": "^8.13.1"
+    "mailgun-js": "^0.22.0"
   }
 }
