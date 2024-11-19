@@ -12,9 +12,12 @@ exports.handler = async (event) => {
       JSON.parse(snsMessage);
 
     const verificationLink = `${verifyEmailLink}/${verificationToken}`;
+
+    console.log("verificationLink", verificationLink);
+
     await sendVerificationEmail(email, verificationLink);
 
-    await updateTokenExpiry(email, verificationToken);
+    // await updateTokenExpiry(email, verificationToken);
 
     return {
       statusCode: 200,

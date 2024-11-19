@@ -2,6 +2,7 @@ const User = require("../models/user");
 const verifyEmailExpiry = parseInt(process.env.VERIFY_EMAIL_EXPIRY_TIME) || 120;
 
 async function updateTokenExpiry(email, token) {
+  console.log("Updating token expiry in the DB for:", email);
   try {
     const user = await User.findOne({ email });
     if (!user) {
