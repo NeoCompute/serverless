@@ -1,12 +1,14 @@
 const mailgun = require("mailgun-js");
 
-const DOMAIN = process.env.MAILGUN_DOMAIN;
-const API_KEY = process.env.MAILGUN_API_KEY;
-const fromEmail = process.env.FROM_EMAIL;
-const mg = mailgun({ apiKey: API_KEY, domain: DOMAIN });
-
-async function sendVerificationEmail(email, verificationLink) {
+async function sendVerificationEmail(
+  email,
+  verificationLink,
+  apiKey,
+  domain,
+  fromEmail
+) {
   console.log("Sending Verification Email to:", email);
+  const mg = mailgun({ apiKey, domain });
   const data = {
     from: fromEmail,
     to: email,
