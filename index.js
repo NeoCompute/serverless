@@ -2,10 +2,18 @@ const AWS = require("aws-sdk");
 const secretsManager = new AWS.SecretsManager();
 
 async function getEmailCredentials() {
-  const secret = await secretsManager
-    .getSecretValue({ SecretId: process.env.EMAIL_SECRET_ID })
-    .promise();
-  return JSON.parse(secret.SecretString);
+  try {
+    const secret = await secretsManager
+      .getSecretValue({ SecretId: process.env.EMAIL_SECRET_ARN })
+      .promise();
+    return JSON.parse(secret.SecretString);
+  } catch (error) {
+    console.error(
+      "Error fetching email credentials from Secrets Manager:",
+      error
+    );
+    throw new Error("Error fetching email credentials from Secrets Manager");
+  }
 }
 
 const { sendVerificationEmail } = require("./utils/emailService");
